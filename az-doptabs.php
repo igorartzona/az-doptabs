@@ -2,7 +2,7 @@
 /*
  * Plugin Name: az-doptabs
  * Description: Индивидуальные дополнительные вкладки для woocommerce
- * Version: 0.4
+ * Version: 1.0
  * Author: jvj 
  */
  
@@ -273,10 +273,10 @@ function az_doptabs_uninstall() {
 	$allposts = get_posts('numberposts=-1&post_type=product&post_status=any');
 
 	foreach( $allposts as $postinfo) {		
-		delete_post_meta( $postinfo->ID, '_az_complectation');
-		delete_post_meta( $postinfo->ID, '_az_3dmodel');
-		delete_post_meta( $postinfo->ID, '_az_deprecated_checkbox');
-		delete_post_meta( $postinfo->ID, '_az_altproduct_type_ids');		
+		//delete_post_meta( $postinfo->ID, '_az_complectation');
+		//delete_post_meta( $postinfo->ID, '_az_3dmodel');
+		//delete_post_meta( $postinfo->ID, '_az_deprecated_checkbox');
+		//delete_post_meta( $postinfo->ID, '_az_altproduct_type_ids');		
 	}
 	
 }
