@@ -57,6 +57,28 @@ function az_add_doptabs_field() {
 		?>
 		
 	</div>
+
+	<div class="options_group">
+		
+		<h2><strong>Видео</strong></h2>		
+		<?php
+			wp_editor(get_post_meta( $post->ID, '_az_video', true ), 'azvideo', array(
+				'wpautop'       => 1,
+				'media_buttons' => 1,
+				'textarea_name' => 'azvideo',
+				'textarea_rows' => 20,
+				'tabindex'      => null,
+				'editor_css'    => '<style>#wp-video-wrap {padding:10px;} #wp-azvideo-editor-container .wp-editor-area{height:200px;width:100%;border: 1px solid #eee;margin-bottom: 10px;}</style>',
+				'editor_class'  => 'form-field',
+				'teeny'         => 0,
+				'dfw'           => 0,
+				'tinymce'       => 1,
+				'quicktags'     => 1,
+				'drag_drop_upload' => false
+			) );		
+		?>
+		
+	</div>
 	
 	<div class="options_group">
 		
@@ -134,6 +156,9 @@ function az_doptabs_field_save( $post_id ) {
 	$post_azcomplectation = isset( $_POST['azcomplectation'] ) ? $_POST['azcomplectation'] : '';
 	update_post_meta( $post_id, '_az_complectation', $post_azcomplectation );
 	
+        $post_azvideo = isset( $_POST['azvideo'] ) ? $_POST['azvideo'] : '';
+	update_post_meta( $post_id, '_az_video', $post_azvideo );
+        
 	$post_az3dmodel = isset( $_POST['az3dmodel'] ) ? $_POST['az3dmodel'] : '';
 	update_post_meta( $post_id, '_az_3dmodel', $post_az3dmodel );
 	
@@ -156,6 +181,7 @@ function az_add_tabs($tabs){
 	global $post;
 	
 	$az_complectation = get_post_meta( $post->ID, '_az_complectation', true );
+        $az_video = get_post_meta( $post->ID, '_az_video', true );
 	$az_3dmodel = get_post_meta( $post->ID, '_az_3dmodel', true );
 	
 	if ( !empty($az_complectation) ) {
@@ -164,6 +190,16 @@ function az_add_tabs($tabs){
 			'title'    => 'Комплектация',
 			'priority' => 40,
 			'callback' => 'az_complectation_tab'
+		);
+
+	}
+        
+        if ( !empty($az_video) ) {
+	
+		$tabs['new_tab'] = array(
+			'title'    => 'Видео',
+			'priority' => 45,
+			'callback' => 'az_video_tab'
 		);
 
 	}
@@ -188,6 +224,16 @@ function az_complectation_tab(){
 	$az_complectation = get_post_meta( $post->ID, '_az_complectation', true );
 	
 	if ( !empty($az_complectation) ) echo $az_complectation;
+			
+}
+
+function az_video_tab(){
+
+	global $post;
+
+	$az_video = get_post_meta( $post->ID, '_az_video', true );
+	
+	if ( !empty($az_video) ) echo $az_video;
 			
 }
 
