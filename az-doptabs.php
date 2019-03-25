@@ -2,7 +2,7 @@
 /*
  * Plugin Name: az-doptabs
  * Description: Индивидуальные дополнительные вкладки для woocommerce
- * Version: 1.0
+ * Version: 1.1.1
  * Author: jvj 
  */
  
@@ -233,7 +233,15 @@ function az_video_tab(){
 
 	$az_video = get_post_meta( $post->ID, '_az_video', true );
 	
-	if ( !empty($az_video) ) echo $az_video;
+	if ( !empty($az_video) && (stripos($az_video, 'youtu') > 0) ) {
+		
+            ?>
+
+                <iframe src="<?php echo $az_video; ?>" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+		
+            <?php
+	
+	}
 			
 }
 
@@ -272,7 +280,7 @@ function az_altproduct_view() {
                 
                 ?>				
 				
-				<div class="az-front-message"><i>Товар выведен из ассортимента</i></div>
+		<div class="az-front-message"><i>Товар выведен из ассортимента</i></div>
 				
                 <h3><?php echo _e('Рекомендуемый товар на замену:');?></h3>
                 
@@ -300,7 +308,7 @@ function az_empty_price_replace_deprecated( $price ) {
 	
             //$price = '<div style="color:darkorange;">Товар выведен из ассортимента</div>';
 			
-			$price = '<i>Товар выведен из ассортимента</i>';
+            $price = '<i>Товар выведен из ассортимента</i>';
 		
             remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );		
     	
