@@ -2,7 +2,7 @@
 /*
  * Plugin Name: az-doptabs
  * Description: Индивидуальные дополнительные вкладки для woocommerce
- * Version: 1.1.1
+ * Version: 1.1
  * Author: jvj 
  */
  
@@ -68,7 +68,7 @@ function az_add_doptabs_field() {
 				'textarea_name' => 'azvideo',
 				'textarea_rows' => 20,
 				'tabindex'      => null,
-				'editor_css'    => '<style>#wp-video-wrap {padding:10px;} #wp-azvideo-editor-container .wp-editor-area{height:200px;width:100%;border: 1px solid #eee;margin-bottom: 10px;}</style>',
+				'editor_css'    => '<style>#wp-azvideo-wrap {padding:10px;} #wp-azvideo-editor-container .wp-editor-area{height:200px;width:100%;border: 1px solid #eee;margin-bottom: 10px;}</style>',
 				'editor_class'  => 'form-field',
 				'teeny'         => 0,
 				'dfw'           => 0,
@@ -156,7 +156,7 @@ function az_doptabs_field_save( $post_id ) {
 	$post_azcomplectation = isset( $_POST['azcomplectation'] ) ? $_POST['azcomplectation'] : '';
 	update_post_meta( $post_id, '_az_complectation', $post_azcomplectation );
 	
-        $post_azvideo = isset( $_POST['azvideo'] ) ? $_POST['azvideo'] : '';
+    $post_azvideo = isset( $_POST['azvideo'] ) ? $_POST['azvideo'] : '';
 	update_post_meta( $post_id, '_az_video', $post_azvideo );
         
 	$post_az3dmodel = isset( $_POST['az3dmodel'] ) ? $_POST['az3dmodel'] : '';
@@ -181,7 +181,7 @@ function az_add_tabs($tabs){
 	global $post;
 	
 	$az_complectation = get_post_meta( $post->ID, '_az_complectation', true );
-        $az_video = get_post_meta( $post->ID, '_az_video', true );
+    $az_video = get_post_meta( $post->ID, '_az_video', true );
 	$az_3dmodel = get_post_meta( $post->ID, '_az_3dmodel', true );
 	
 	if ( !empty($az_complectation) ) {
@@ -235,11 +235,11 @@ function az_video_tab(){
 	
 	if ( !empty($az_video) && (stripos($az_video, 'youtu') > 0) ) {
 		
-            ?>
+		?>
 
-                <iframe src="<?php echo $az_video; ?>" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+			<iframe src="<?php echo $az_video; ?>" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 		
-            <?php
+		<?php
 	
 	}
 			
@@ -280,7 +280,7 @@ function az_altproduct_view() {
                 
                 ?>				
 				
-		<div class="az-front-message"><i>Товар выведен из ассортимента</i></div>
+				<div class="az-front-message"><i>Товар выведен из ассортимента</i></div>
 				
                 <h3><?php echo _e('Рекомендуемый товар на замену:');?></h3>
                 
@@ -308,7 +308,7 @@ function az_empty_price_replace_deprecated( $price ) {
 	
             //$price = '<div style="color:darkorange;">Товар выведен из ассортимента</div>';
 			
-            $price = '<i>Товар выведен из ассортимента</i>';
+			$price = '<i>Товар выведен из ассортимента</i>';
 		
             remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );		
     	
@@ -324,7 +324,7 @@ function az_empty_price_replace_deprecated( $price ) {
 register_uninstall_hook(__FILE__, 'az_doptabs_uninstall');
 function az_doptabs_uninstall() {
 	
-	$allposts = get_posts('numberposts=-1&post_type=product&post_status=any');
+	//$allposts = get_posts('numberposts=-1&post_type=product&post_status=any');
 
 	foreach( $allposts as $postinfo) {		
 		//delete_post_meta( $postinfo->ID, '_az_complectation');
