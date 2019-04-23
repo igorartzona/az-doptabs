@@ -4,6 +4,8 @@
  * Description: Индивидуальные дополнительные вкладки для woocommerce
  * Version: 1.1
  * Author: jvj 
+ * WC requires at least: 3.0.0
+ * WC tested up to: 3.6
  */
  
  if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
