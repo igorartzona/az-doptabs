@@ -142,37 +142,41 @@ function az_altproduct_view() {
 
 	$az_deprecated = get_post_meta( $post->ID, '_az_deprecated_checkbox', true );
 
-	if ( $az_deprecated == 'yes' ) {
-		//echo '<div style="border:1px solid;padding:1em;margin-bottom:1em;background: bisque;">Данный товар был выведен из ассортимента</div>';
-		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+	if ( $az_deprecated == 'yes' ) :  ?>
 
-	$product_field_ids = get_post_meta( $post->ID, '_az_altproduct_type_ids', true );
+            <div class="az-front-message"><i>Товар выведен из ассортимента</i></div>
 
-	if ( !empty( $product_field_ids ) ) {
+            <?php remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 ); ?>
 
-		$altproduct_ids = implode(",", $product_field_ids);
+        <?php endif;
 
-		$altproduct_columns = count( $product_field_ids );
+        $product_field_ids = get_post_meta( $post->ID, '_az_altproduct_type_ids', true );
 
-                $col = ( $altproduct_columns > 2 ) ? 2 : $altproduct_columns;
+        if ( !empty( $product_field_ids ) ) {
 
-                ?>
+            $altproduct_ids = implode(",", $product_field_ids);
 
-                <div class="az-front-message"><i>Товар может быть доступен по складским остаткам</i></div>
+            $altproduct_columns = count( $product_field_ids );
 
-                <h3><?php echo _e('Рекомендуемый товар на замену:');?></h3>
+            $col = ( $altproduct_columns > 2 ) ? 2 : $altproduct_columns;
 
-                <div class="az-altproduct">
+            ?>
 
-                    <?php echo do_shortcode( '[products class="related" limit="'.$altproduct_columns.'" columns="'.$col.'" ids="'.$altproduct_ids.'"]'); ?>
+            <h3><?php echo _e('Рекомендуемый товар на замену:');?></h3>
 
-                </div>
+            <div class="az-altproduct">
 
-                <hr />
+                <?php echo do_shortcode( '[products class="related" limit="'.$altproduct_columns.'" columns="'.$col.'" ids="'.$altproduct_ids.'"]'); ?>
 
-                <?php
-	}
+            </div>
 
+            <hr />
+
+            <div class="az-front-message"><i>Товар может быть доступен по складским остаткам</i></div>
+
+
+
+            <?php
         }
 
 }
