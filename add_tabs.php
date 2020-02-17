@@ -85,7 +85,7 @@ function az_add_doptabs_field() {
 
         <div class="options_group">
 
-	<h2><strong>Дополнительная документация</strong></h2>
+            <h2><strong>Дополнительная документация</strong></h2>
 
             <?php
 		wp_editor(get_post_meta( $post->ID, '_az_dop_docs', true ), 'azdopdocs', array(
@@ -104,7 +104,7 @@ function az_add_doptabs_field() {
 		) );
             ?>
 
-        <h2><strong>Кнопка запроса чертежа</strong></h2>
+            <h2><strong>Кнопка запроса чертежа</strong></h2>
 
             <?php
 		woocommerce_wp_checkbox( array(

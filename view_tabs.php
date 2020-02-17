@@ -18,7 +18,7 @@ function az_add_tabs($tabs){
 
 	$tabs['new_tab'] = array(
             'title'    => 'Комплектация',
-            'priority' => 40,
+            'priority' => 11,
             'callback' => 'az_complectation_tab'
 	);
 
@@ -27,8 +27,8 @@ function az_add_tabs($tabs){
     if ( !empty($az_dopdocs) ) {
 
 	$tabs['new_tab4'] = array(
-            'title'    => 'Документация',
-            'priority' => 45,
+            'title'    => 'Документация и файлы',
+            'priority' => 12,
             'callback' => 'az_dopdocs_tab'
 	);
 
@@ -39,7 +39,7 @@ function az_add_tabs($tabs){
 
 	$tabs['new_tab2'] = array(
             'title'    => 'Видео',
-            'priority' => 50,
+            'priority' => 13,
             'callback' => 'az_video_tab'
 	);
 
@@ -49,7 +49,7 @@ function az_add_tabs($tabs){
 
 	$tabs['new_tab3'] = array(
             'title'    => '3D модель',
-            'priority' => 55,
+            'priority' => 14,
             'callback' => 'az_3dmodel_tab'
 	);
 
@@ -75,15 +75,27 @@ function az_dopdocs_tab(){
 
 	$az_dopdocs = get_post_meta( $post->ID, '_az_dop_docs', true );
 
-	if ( !empty($az_dopdocs) ) echo $az_dopdocs;
+	if ( !empty($az_dopdocs) ) {
+            ?>
+
+            <div class="dopdocs_tab">
+
+            <?php echo $az_dopdocs; ?>
+
+            </div>
+
+            <?php
+        }
 
         $az_draw = get_post_meta($post->ID, '_az_drawing_checkbox', true);
 
         if ($az_draw == 'yes') : ?>
 
-            <div class="docs-div">
+            <div style="text-align: center;">
 
-                <button>Запросить CAD-файл</button>
+                <button>
+                    <span class="cad">Запросить CAD-файл</span>
+                </button>
 
             </div>
 
@@ -145,6 +157,8 @@ function az_altproduct_view() {
                 $col = ( $altproduct_columns > 2 ) ? 2 : $altproduct_columns;
 
                 ?>
+
+                <div class="az-front-message"><i>Товар может быть доступен по складским остаткам</i></div>
 
                 <h3><?php echo _e('Рекомендуемый товар на замену:');?></h3>
 
