@@ -114,7 +114,7 @@ function az_video_tab(){
 
             ?>
 
-            <iframe src="<?php echo $az_video; ?>" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+            <iframe src="<?php echo $az_video; ?>" width="560" height="315" autoplay="0" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 
             <?php
 
