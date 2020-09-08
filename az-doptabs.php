@@ -40,6 +40,7 @@ define( 'AZDT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 require_once ( AZDT_PLUGIN_PATH . 'add_tabs.php');
 require_once ( AZDT_PLUGIN_PATH . 'view_tabs.php');
 
+
 /* удаляем из БД созданные плагином мета-поля */
 register_uninstall_hook(__FILE__, 'az_doptabs_uninstall');
 function az_doptabs_uninstall() {
