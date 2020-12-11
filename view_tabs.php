@@ -166,7 +166,7 @@ function az_altproduct_view() {
 
             <div class="az-altproduct">
 
-                <?php echo do_shortcode( '[products class="related" limit="'.$altproduct_columns.'" columns="'.$col.'" ids="'.$altproduct_ids.'"]'); ?>
+                <?php echo do_shortcode( '[products limit="'.$altproduct_columns.'" columns="'.$col.'" ids="'.$altproduct_ids.'"]'); ?>
 
             </div>
 
@@ -190,8 +190,6 @@ function az_empty_price_replace_deprecated( $price ) {
     $az_deprecated = get_post_meta( get_the_ID(), '_az_deprecated_checkbox', true );
 
     if ( $az_deprecated == 'yes' ) {
-
-            //$price = '<div style="color:darkorange;">Товар выведен из ассортимента</div>';
 
             $price = '<i>Товар выведен из ассортимента</i>';
 
