@@ -142,9 +142,9 @@ function az_altproduct_view() {
 
 	$az_deprecated = get_post_meta( $post->ID, '_az_deprecated_checkbox', true );
 
-	if ( $az_deprecated == 'yes' ) :  ?>
+	if ( $az_deprecated === 'yes' ) :  ?>
 
-            <div class="az-front-message"><i>Товар выведен из ассортимента</i></div>
+            <div><i style="font-size:1rem;color:red;">Товар выведен из ассортимента. Может быть доступен по складским остаткам</i></div>
 
             <?php remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 ); ?>
 
@@ -162,19 +162,13 @@ function az_altproduct_view() {
 
             ?>
 
-            <h3><?php echo _e('Рекомендуемый товар на замену:');?></h3>
+            <h4><?php echo _e('Рекомендуемый товар на замену:');?></h4>
 
             <div class="az-altproduct">
 
                 <?php echo do_shortcode( '[products limit="'.$altproduct_columns.'" columns="'.$col.'" ids="'.$altproduct_ids.'"]'); ?>
 
             </div>
-
-            <hr />
-
-            <div class="az-front-message"><i>Товар может быть доступен по складским остаткам</i></div>
-
-
 
             <?php
         }
@@ -189,9 +183,9 @@ function az_empty_price_replace_deprecated( $price ) {
 
     $az_deprecated = get_post_meta( get_the_ID(), '_az_deprecated_checkbox', true );
 
-    if ( $az_deprecated == 'yes' ) {
+    if ( $az_deprecated === 'yes' ) {
 
-            $price = '<i>Товар выведен из ассортимента</i>';
+            $price = '<i style="font-size:0.9rem;color:red;">Товар выведен из ассортимента</i>';
 
             remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
 
