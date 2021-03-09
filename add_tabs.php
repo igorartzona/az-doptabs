@@ -193,6 +193,20 @@ function az_doptabs_field_save( $post_id ) {
 
     $post_az3dmodel = isset( $_POST['az3dmodel'] ) ? $_POST['az3dmodel'] : '';
     update_post_meta( $post_id, '_az_3dmodel', $post_az3dmodel );
+
+    if (  isset( $_POST['az_related_complect'] ) && !empty($_POST['az_related_complect'] ) ) {
+        update_post_meta( $post_id, '_az_related_complect_ids',  array_map( 'absint', (array) $_POST['az_related_complect'] ));
+    } else {
+        delete_post_meta( $post_id, '_az_related_complect_ids');
+    }
+
+    if (  isset( $_POST['az_monitoring'] ) && !empty($_POST['az_monitoring'] ) ) {
+        update_post_meta( $post_id, '_az_monitoring_ids',  array_map( 'absint', (array) $_POST['az_monitoring'] ));
+    } else {
+        delete_post_meta( $post_id, '_az_monitoring_ids');
+    }
+
+
 }
 
 /*Добавление кнопок в редактор*/
@@ -208,5 +222,94 @@ function az_add_quicktags() {
 	QTags.addButton( 'az_passport_tag', 'Технический паспорт', '<h4>Технический паспорт :</h4>', '', 'h', 'Паспорт', 1 );
 	QTags.addButton( 'az_schema_tag', 'Схема', '<h4>Схема подключения :</h4>', '', 'h', 'Схема', 1 );
 	</script>
+    <?php
+}
+
+
+/* Добавление во вкладкy related */
+add_action( 'woocommerce_product_options_related', 'az_related_extend_fields' );
+function az_related_extend_fields() {
+
+    global $product, $post;
+	?>
+
+	<div class="options_group">
+
+            <h2><strong>Готовые комплекты</strong></h2>
+
+            <p class="form-field az_related_complect">
+		<label for="az_related_complect">Готовые комплекты</label>
+		<select id="az_related_complect"
+                	name="az_related_complect[]"
+			class="wc-product-search"
+			multiple="multiple"
+			style="width: 50%;"
+			data-placeholder="<?php esc_attr_e( 'Search products&hellip;', 'woocommerce' ); ?>"
+			data-action="woocommerce_json_search_products_and_variations"
+			data-exclude="<?php echo intval( $post->ID ); ?>"
+		>
+
+		<?php
+                    $az_related_complect_ids = get_post_meta( $post->ID, '_az_related_complect_ids', true );
+                    $product_ids = ! empty( $az_related_complect_ids ) && isset($az_related_complect_ids) ? array_map( 'absint',  $az_related_complect_ids ) : array();
+
+                    if ( $product_ids ) {
+			foreach ( $product_ids as $product_id ) {
+                            $product      = wc_get_product( $product_id );
+                            $product_name = $product->get_formatted_name();
+                            echo '<option value="' . esc_attr( $product_id ) . '" ' . selected(true, true, false )  . '>' .
+                            esc_html( $product->get_formatted_name() ) . '</option>';
+			}
+                    }
+		?>
+
+		</select>
+
+		<span class="woocommerce-help-tip" data-tip="Выберите рекомендуемые комплекты товаров"></span>
+
+            </p>
+
+        </div>
+
+        <div class="options_group">
+
+            <h2><strong>Мониторинг</strong></h2>
+
+            <p class="form-field az_monitoring">
+		<label for="az_monitoring">Мониторинг</label>
+		<select id="az_monitoring"
+                	name="az_monitoring[]"
+			class="wc-product-search"
+			multiple="multiple"
+			style="width: 50%;"
+			data-placeholder="<?php esc_attr_e( 'Search products&hellip;', 'woocommerce' ); ?>"
+			data-action="woocommerce_json_search_products_and_variations"
+			data-exclude="<?php echo intval( $post->ID ); ?>"
+		>
+
+		<?php
+                    $az_monitoring_ids = get_post_meta( $post->ID, '_az_monitoring_ids', true );
+                    $product_ids = ! empty( $az_monitoring_ids ) && isset($az_monitoring_ids) ? array_map( 'absint',  $az_monitoring_ids ) : array();
+
+                    if ( $product_ids ) {
+			foreach ( $product_ids as $product_id ) {
+                            $product      = wc_get_product( $product_id );
+                            $product_name = $product->get_formatted_name();
+                            echo '<option value="' . esc_attr( $product_id ) . '" ' . selected(true, true, false )  . '>' .
+                            esc_html( $product->get_formatted_name() ) . '</option>';
+			}
+                    }
+		?>
+
+		</select>
+
+		<span class="woocommerce-help-tip" data-tip="Элементы мониторинга"></span>
+
+            </p>
+
+        </div>
+
+
+
     <?php
 }

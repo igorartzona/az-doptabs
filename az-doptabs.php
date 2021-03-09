@@ -2,10 +2,10 @@
 /*
  * Plugin Name: az-doptabs
  * Description: Индивидуальные дополнительные вкладки для woocommerce
- * Version: 1.4.1
+ * Version: 2.0.0
  * Author: jvj
  * WC requires at least: 3.0.0
- * WC tested up to: 4.8.0
+ * WC tested up to: 5.0.0
  */
 
  if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
